@@ -22,16 +22,36 @@ public class LinkedIntListProblems {
      * Reverses the 3 elements in the `LinkedIntList` (assume there are exactly 3 elements).
      */
     public static void reverse3(LinkedIntList list) {
-        // TODO replace this with your code
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        if (list.front != null && list.front.next != null && list.front.next.next != null) {
+            ListNode first = list.front;
+            ListNode second = list.front.next;
+            ListNode third = list.front.next.next;
+
+            third.next = second;
+            second.next = first;
+            first.next = null;
+
+            list.front = third;
+        }
     }
 
     /**
      * Moves the first element of the input list to the back of the list.
      */
     public static void firstToLast(LinkedIntList list) {
-        // TODO replace this with your code
-        throw new UnsupportedOperationException("Not implemented yet.");
+        if (list.front != null && list.front.next != null) {
+            ListNode first = list.front;
+            ListNode second = list.front.next;
+
+            // Move the first node to the back
+            list.front = second;
+            while (second.next != null) {
+                second = second.next;
+            }
+            second.next = first;
+            first.next = null;
+        }
     }
 
     /**
@@ -39,8 +59,50 @@ public class LinkedIntListProblems {
      * of n. Does not modify items of A or B.
      */
     public static LinkedIntList concatenate(LinkedIntList a, LinkedIntList b) {
-        // Hint: you'll need to use the 'new' keyword to construct new objects.
-        // TODO replace this with your code
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        LinkedIntList result = new LinkedIntList();
+
+        if (a.front != null) {
+            result.front = new ListNode(a.front.data);
+            ListNode current1 = a.front;
+            ListNode result1 = result.front;
+
+            while (current1.next != null) {
+                result1.next = new ListNode(current1.next.data);
+                current1 = current1.next;
+                result1 = result1.next;
+            }
+        }
+
+        if (b.front != null) {
+            ListNode result2;
+
+            if (result.front != null) {
+                result2 = result.front;
+                while (result2.next != null) {
+                    result2 = result2.next;
+                }
+                result2.next = new ListNode(b.front.data);
+                result2 = result2.next;
+
+            } else {
+                result.front = new ListNode(b.front.data);
+                result2 = result.front;
+            }
+
+            ListNode current2 = b.front;
+
+
+            while (current2.next != null) {
+                result2.next = new ListNode(current2.next.data);
+                current2 = current2.next;
+                result2 = result2.next;
+            }
+
+        }
+
+        return result;
     }
+
+
 }
