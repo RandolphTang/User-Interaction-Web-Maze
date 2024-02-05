@@ -67,8 +67,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
 
         if (rightChild < this.size &&
             this.items.get(rightChild) != null &&
-            (items.get(leftChild).getPriority() < item.getPriority() ||
-                items.get(rightChild).getPriority() < item.getPriority())) {
+            (items.get(leftChild).getPriority() < item.getPriority() || items.get(rightChild).getPriority() < item.getPriority())) {
 
 
             if (items.get(leftChild).getPriority() < items.get(rightChild).getPriority()) {
