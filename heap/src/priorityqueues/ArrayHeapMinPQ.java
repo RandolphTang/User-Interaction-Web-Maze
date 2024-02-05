@@ -55,7 +55,6 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         if (item.getPriority() < parent.getPriority()) {
             this.swap(index, parentIndex); // swap the two items
             this.checkUp(item, parentIndex); // recursively percolate up?
-
         }
 
     }
@@ -80,6 +79,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         if (smallest != index) {
             swap(index, smallest);
             checkDown(this.items.get(smallest), smallest);
+            checkDown(this.items.get(index), index);
         }
 
     }
@@ -98,14 +98,10 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
 
             if (size > 0) {
                 this.checkUp(val, index);
-                this.checkUp(this.items.get(size - 1), size);
             }
 
-
-
-    System.out.println(items);
-
-
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 
@@ -138,23 +134,13 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         T min = this.items.get(0).getItem();
         this.map.remove(min);
 
-        // System.out.println("removed");
-        // System.out.println("------------>");
-        // System.out.println(min);
-        // System.out.println(this.items.get(0));
-        // System.out.println("------------>");
-
         this.items.set(0, this.items.get(size - 1));
-        // System.out.println("the next zero location with max priotity");
-        // System.out.println(this.items.get(0));
-        // System.out.println("_____________ ");
+
         this.items.set(size - 1, null);
 
         this.size--;
 
         checkDown(this.items.get(0), 0);
-
-
 
         return min;
 
