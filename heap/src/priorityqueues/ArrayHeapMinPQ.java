@@ -154,11 +154,14 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
 
         this.items.set(0, this.items.get(size - 1));
 
-        this.items.set(size - 1, null);
+        this.items.remove(this.size - 1);
 
         this.size--;
 
-        checkDown(this.items.get(0), 0);
+        if (this.size > 0) {
+            checkDown(this.items.get(0), 0);
+        }
+
 
         return min;
 

@@ -6,20 +6,26 @@ public class test1 {
 
 
         pq.add("Jean Valjean", 3);
-        pq.add("Javert", 9);
-        pq.add("Cosette", 7);
-        pq.add("Marius", 4);
-        pq.add("Eponine", 1);
-        pq.add("Gavroche", 8);
-        pq.add("Fantine", 5);
-        pq.add("Thenardier", 2);
-        pq.add("Enjolras", 6);
-        pq.add("Grantaire", 10);
+        pq.add("Javert", 7);
+        pq.add("Cosette", 9);
 
 
-        while (!pq.isEmpty()) {
-            pq.removeMin();
-        }
+        pq.removeMin();
+
+        pq.add("Jean Valjean", 3);
+
+        // pq.add("Marius", 4);
+        // pq.add("Eponine", 1);
+        // pq.add("Gavroche", 8);
+        // pq.add("Fantine", 5);
+        // pq.add("Thenardier", 2);
+        // pq.add("Enjolras", 6);
+        // pq.add("Grantaire", 10);
+
+
+        // while (!pq.isEmpty()) {
+        //     pq.removeMin();
+        // }
 
     }
 
