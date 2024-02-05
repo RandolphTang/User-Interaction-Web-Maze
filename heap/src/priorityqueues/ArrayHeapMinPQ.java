@@ -65,21 +65,33 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         int rightChild = 2 * index + 2;
         int smallest = index;
 
-        if (leftChild < this.size &&
+        if (leftChild < this.size && rightChild < this.size &&
+            this.items.get(leftChild) != null && this.items.get(rightChild) != null &&
+            (items.get(leftChild).getPriority() < item.getPriority() ||
+                items.get(rightChild).getPriority() < item.getPriority())) {
+            if (items.get(leftChild).getPriority() < items.get(rightChild).getPriority()) {
+                smallest = leftChild;
+            } else {
+                smallest = rightChild;
+            }
+
+        } else if (leftChild < this.size &&
             this.items.get(leftChild) != null &&
             items.get(leftChild).getPriority() < item.getPriority()) {
+
             smallest = leftChild;
-        }
-        if (rightChild < this.size &&
+
+        } else if (rightChild < this.size &&
             this.items.get(rightChild) != null &&
             items.get(rightChild).getPriority() < item.getPriority()) {
-            smallest = rightChild;
+            smallest = leftChild;
         }
+
 
         if (smallest != index) {
             swap(index, smallest);
             checkDown(this.items.get(smallest), smallest);
-            checkDown(this.items.get(index), index);
+
         }
 
     }
@@ -99,6 +111,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
             if (size > 0) {
                 this.checkUp(val, index);
             }
+
 
         } else {
             throw new IllegalArgumentException();
