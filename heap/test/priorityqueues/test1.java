@@ -10,9 +10,11 @@ public class test1 {
         pq.add("Cosette", 9);
 
 
-        pq.removeMin();
+        pq.changePriority("Jean Valjean", 18
+        );
 
-        pq.add("Jean Valjean", 3);
+        System.out.println(pq.items);
+
 
         // pq.add("Marius", 4);
         // pq.add("Eponine", 1);

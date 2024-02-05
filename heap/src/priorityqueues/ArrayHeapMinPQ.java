@@ -176,7 +176,9 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
 
         int location = this.map.get(item);
 
+
         PriorityNode<T> curr = new PriorityNode<>(item, priority);
+        this.items.set(location, curr);
 
         if (priority < items.get(location).getPriority()) {
             checkUp(curr, location);
