@@ -47,15 +47,18 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     //helper function to restore heap
     private void checkUp(PriorityNode<T> item, int index) {
 
-        int parentIndex = (index - 1) / 2; // set parentIndex
-        PriorityNode<T> parent = items.get(parentIndex); // get parent node
+        if (index != 0) {
+            int parentIndex = (index - 1) / 2; // set parentIndex
+            PriorityNode<T> parent = items.get(parentIndex); // get parent node
 
-        // if the priority of the curr is lower than parent,
-        // then percolate up
-        if (item.getPriority() < parent.getPriority()) {
-            this.swap(index, parentIndex); // swap the two items
-            this.checkUp(item, parentIndex); // recursively percolate up?
+            // if the priority of the curr is lower than parent,
+            // then percolate up
+            if (item.getPriority() < parent.getPriority()) {
+                this.swap(index, parentIndex); // swap the two items
+                this.checkUp(item, parentIndex); // recursively percolate up?
+            }
         }
+
 
     }
 
