@@ -10,7 +10,7 @@ public class test1 {
         pq.add("Cosette", 9);
 
 
-        pq.changePriority("Jean Valjean", 18
+        pq.changePriority("Cosette", 1
         );
 
         System.out.println(pq.items);
