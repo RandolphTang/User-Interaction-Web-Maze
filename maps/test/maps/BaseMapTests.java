@@ -477,20 +477,13 @@ public abstract class BaseMapTests extends BaseTest {
             expected.put(i, i*i);
         }
 
-
         for (int i = 0; i < size; i++) {
-
             map.remove(i);
-
             expected.remove(i);
-
-
             assertThat(map)
                 .as("entries yielded by iterator after removing %d/%d", i + 1, size)
                 .containsExactlyInAnyOrderEntriesOf(expected);
         }
-
-
     }
 
     void exhaust(Iterator<?> iterator) {
