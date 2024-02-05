@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     // IMPORTANT: Do not rename these fields or change their visibility.
     // We access these during grading to test your code.
-    static final int START_INDEX = 1;
+    static final int START_INDEX = 0;
     List<PriorityNode<T>> items;
 
     private int size;
@@ -20,6 +20,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     public ArrayHeapMinPQ() {
 
         items = new ArrayList<>();
+
         this.map = new HashMap<>();
         size = 0;
 
@@ -34,6 +35,8 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         if (a < size && b < size) {
             PriorityNode<T> aVal = items.get(a);
             PriorityNode<T> bVal = items.get(b);
+
+
             items.set(a, bVal);
             this.map.put(aVal.getItem(), b);
             this.map.put(bVal.getItem(), a);
@@ -50,9 +53,11 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         // if the priority of the curr is lower than parent,
         // then percolate up
         if (item.getPriority() < parent.getPriority()) {
-            swap(index, parentIndex); // swap the two items
-            checkUp(parent, parentIndex); // recursively percolate up?
+            this.swap(index, parentIndex); // swap the two items
+            this.checkUp(item, parentIndex); // recursively percolate up?
+
         }
+
     }
 
     private void checkDown(PriorityNode<T> item, int index) {
@@ -61,10 +66,14 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         int rightChild = 2 * index + 2;
         int smallest = index;
 
-        if (leftChild < this.size && items.get(leftChild).getPriority() < item.getPriority()) {
+        if (leftChild < this.size &&
+            this.items.get(leftChild) != null &&
+            items.get(leftChild).getPriority() < item.getPriority()) {
             smallest = leftChild;
         }
-        if (rightChild < this.size && items.get(rightChild).getPriority() < item.getPriority()) {
+        if (rightChild < this.size &&
+            this.items.get(rightChild) != null &&
+            items.get(rightChild).getPriority() < item.getPriority()) {
             smallest = rightChild;
         }
 
@@ -77,19 +86,26 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
 
     @Override
     public void add(T item, double priority) {
+
+
         if (!this.contains(item)) {
             this.map.put(item, this.size);
             PriorityNode<T> val = new PriorityNode<>(item, priority);
             items.add(val);
 
             int index = this.size;
+            this.size++;
 
             if (size > 0) {
                 this.checkUp(val, index);
+                this.checkUp(this.items.get(size - 1), size);
             }
 
 
-            this.size++;
+
+    System.out.println(items);
+
+
         }
     }
 
@@ -119,16 +135,26 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
             throw new NoSuchElementException("PQ is empty");
         }
 
-        this.size--;
-
         T min = this.items.get(0).getItem();
         this.map.remove(min);
 
+        // System.out.println("removed");
+        // System.out.println("------------>");
+        // System.out.println(min);
+        // System.out.println(this.items.get(0));
+        // System.out.println("------------>");
+
         this.items.set(0, this.items.get(size - 1));
+        // System.out.println("the next zero location with max priotity");
+        // System.out.println(this.items.get(0));
+        // System.out.println("_____________ ");
         this.items.set(size - 1, null);
 
+        this.size--;
 
         checkDown(this.items.get(0), 0);
+
+
 
         return min;
 
@@ -136,18 +162,19 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
 
     @Override
     public void changePriority(T item, double priority) { //O(logn)
+
         if (size() == 0 || !this.contains(item)) {
             throw new NoSuchElementException("the item is not present in the PQ");
         }
 
-        Integer location = this.map.get(item);
+        int location = this.map.get(item);
 
-        PriorityNode<T> parent = new PriorityNode<>(item, priority);
+        PriorityNode<T> curr = new PriorityNode<>(item, priority);
 
         if (priority < items.get(location).getPriority()) {
-            checkUp(parent, location);
+            checkUp(curr, location);
         } else {
-            checkDown(parent, location);
+            checkDown(curr, location);
         }
 
     }

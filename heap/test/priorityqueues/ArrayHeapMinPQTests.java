@@ -274,8 +274,10 @@ public class ArrayHeapMinPQTests extends BaseTest {
         @Test
         void removeMinRepeatedly_returnsItemsInCorrectOrder() {
             ExtrinsicMinPQ<String> pq = setUpMinPQ();
+
             assertThat(pq).as("invariant check before removing all elements").isValid();
             List<String> output = removeAll(pq);
+
             assertThat(output).containsExactly(correctOrdering);
             assertThat(pq).isValid();
         }
