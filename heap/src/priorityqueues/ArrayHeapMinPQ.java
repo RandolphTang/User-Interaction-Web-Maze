@@ -47,15 +47,18 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
     //helper function to restore heap
     private void checkUp(PriorityNode<T> item, int index) {
 
-        int parentIndex = (index - 1) / 2; // set parentIndex
-        PriorityNode<T> parent = items.get(parentIndex); // get parent node
+        if (index != 0) {
+            int parentIndex = (index - 1) / 2; // set parentIndex
+            PriorityNode<T> parent = items.get(parentIndex); // get parent node
 
-        // if the priority of the curr is lower than parent,
-        // then percolate up
-        if (item.getPriority() < parent.getPriority()) {
-            this.swap(index, parentIndex); // swap the two items
-            this.checkUp(item, parentIndex); // recursively percolate up?
+            // if the priority of the curr is lower than parent,
+            // then percolate up
+            if (item.getPriority() < parent.getPriority()) {
+                this.swap(index, parentIndex); // swap the two items
+                this.checkUp(item, parentIndex); // recursively percolate up?
+            }
         }
+
 
     }
 
@@ -65,21 +68,35 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         int rightChild = 2 * index + 2;
         int smallest = index;
 
-        if (leftChild < this.size &&
-            this.items.get(leftChild) != null &&
-            items.get(leftChild).getPriority() < item.getPriority()) {
-            smallest = leftChild;
-        }
         if (rightChild < this.size &&
             this.items.get(rightChild) != null &&
+            (items.get(leftChild).getPriority() < item.getPriority() ||
+                items.get(rightChild).getPriority() < item.getPriority())) {
+
+
+            if (items.get(leftChild).getPriority() < items.get(rightChild).getPriority()) {
+                smallest = leftChild;
+            } else {
+                smallest = rightChild;
+            }
+
+        } else if (leftChild < this.size &&
+            this.items.get(leftChild) != null &&
+            items.get(leftChild).getPriority() < item.getPriority()) {
+
+            smallest = leftChild;
+
+        } else if (rightChild < this.size &&
+            this.items.get(rightChild) != null &&
             items.get(rightChild).getPriority() < item.getPriority()) {
-            smallest = rightChild;
+            smallest = leftChild;
         }
+
 
         if (smallest != index) {
             swap(index, smallest);
             checkDown(this.items.get(smallest), smallest);
-            checkDown(this.items.get(index), index);
+
         }
 
     }
@@ -99,6 +116,7 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
             if (size > 0) {
                 this.checkUp(val, index);
             }
+
 
         } else {
             throw new IllegalArgumentException();
@@ -136,11 +154,14 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
 
         this.items.set(0, this.items.get(size - 1));
 
-        this.items.set(size - 1, null);
+        this.items.remove(this.size - 1);
 
         this.size--;
 
-        checkDown(this.items.get(0), 0);
+        if (this.size > 0) {
+            checkDown(this.items.get(0), 0);
+        }
+
 
         return min;
 
@@ -154,10 +175,15 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T> {
         }
 
         int location = this.map.get(item);
+        double oldPriority = this.items.get(location).getPriority();
+
+
 
         PriorityNode<T> curr = new PriorityNode<>(item, priority);
 
-        if (priority < items.get(location).getPriority()) {
+        this.items.set(location, curr);
+
+        if (priority < oldPriority) {
             checkUp(curr, location);
         } else {
             checkDown(curr, location);
