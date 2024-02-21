@@ -25,6 +25,7 @@ public class RandomMazeCarver extends MazeCarver {
     @Override
     protected Set<Wall> chooseWallsToRemove(Set<Wall> walls) {
         Set<Wall> toRemove = new HashSet<>();
+
         for (Wall wall : walls) {
             if (this.rand.nextDouble() >= this.probabilityOfKeepingWall) {
                 toRemove.add(wall);
