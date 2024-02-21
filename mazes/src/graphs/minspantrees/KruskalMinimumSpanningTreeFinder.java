@@ -6,14 +6,16 @@ import graphs.BaseEdge;
 import graphs.KruskalGraph;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
 /**
  * Computes minimum spanning trees using Kruskal's algorithm.
  * @see MinimumSpanningTreeFinder for more documentation.
  */
-public class KruskalMinimumSpanningTreeFinder<G extends KruskalGraph<V, E>, V, E extends BaseEdge<V, E>>
+public class     KruskalMinimumSpanningTreeFinder<G extends KruskalGraph<V, E>, V, E extends BaseEdge<V, E>>
     implements MinimumSpanningTreeFinder<G, V, E> {
 
     protected DisjointSets<V> createDisjointSets() {
@@ -41,7 +43,29 @@ public class KruskalMinimumSpanningTreeFinder<G extends KruskalGraph<V, E>, V, E
 
         DisjointSets<V> disjointSets = createDisjointSets();
 
-        // TODO: replace this with your code
-        throw new UnsupportedOperationException("Not implemented yet.");
+        Collection<E> collection = new HashSet<>();
+        int edgeRealSize = 0;
+        int vertexSize = graph.allVertices().size();
+
+        for (V eachV: graph.allVertices()){
+            disjointSets.makeSet(eachV);
+        }
+
+        for (E edge: edges) {
+            if(disjointSets.findSet(edge.from()) != disjointSets.findSet(edge.to())) {
+                disjointSets.union(edge.from(), edge.to());
+
+                collection.add(edge);
+                edgeRealSize++;
+
+            }
+        }
+
+        if(edgeRealSize != vertexSize - 1 && vertexSize != 0) {
+            return new MinimumSpanningTree.Failure<>();
+        }
+
+        return new MinimumSpanningTree.Success<>(collection);
+
     }
 }

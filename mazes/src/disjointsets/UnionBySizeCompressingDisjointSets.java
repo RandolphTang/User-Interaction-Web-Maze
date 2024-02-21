@@ -35,9 +35,7 @@ public class UnionBySizeCompressingDisjointSets<T> implements DisjointSets<T> {
         this.pointers.add(-1);
         this.contents.add(item);
 
-        System.out.println(this.pointers);
-        System.out.println(this.contents);
-        System.out.println("generation done");
+
     }
 
     @Override
