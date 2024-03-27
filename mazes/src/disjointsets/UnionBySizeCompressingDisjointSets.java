@@ -19,7 +19,7 @@ public class UnionBySizeCompressingDisjointSets<T> implements DisjointSets<T> {
     */
 
     public UnionBySizeCompressingDisjointSets() {
-        // TODO: replace this with your code
+
         this.pointers = new ArrayList<>();
         this.contents =  new ArrayList<>();
         this.size = 0;
@@ -47,7 +47,7 @@ public class UnionBySizeCompressingDisjointSets<T> implements DisjointSets<T> {
 
         int index = this.contents.indexOf(item);
 
-        if (this.pointers.get(index) >= 0){
+        if (this.pointers.get(index) >= 0) {
             this.pointers.set(index, findSet(contents.get(pointers.get(index))));
         }
 
@@ -65,7 +65,7 @@ public class UnionBySizeCompressingDisjointSets<T> implements DisjointSets<T> {
         int index1 = findSet(item1);
         int index2 = findSet(item2);
 
-        if(index1 == index2){
+        if (index1 == index2) {
             return false;
         }
 

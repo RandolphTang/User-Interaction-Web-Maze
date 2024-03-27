@@ -44,7 +44,8 @@ public class KruskalMazeCarver extends MazeCarver {
 
         for (Wall wall : walls) {
 
-            EdgeWithData<Room, Wall> each = new EdgeWithData<>(wall.getRoom1(), wall.getRoom2(), rand.nextDouble(), wall);
+            EdgeWithData<Room, Wall> each = new EdgeWithData<>(wall.getRoom1(), wall.getRoom2(),
+                rand.nextDouble(), wall);
             edges.add(each);
 
         }

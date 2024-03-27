@@ -1,7 +1,0 @@
-
-sourceSets.main.studentJava.files = [
-    'problems/ArrayProblems.java',
-    'problems/LinkedIntListProblems.java',
-    'problems/IntTreeProblems.java',
-    'problems/MapProblems.java',
-]

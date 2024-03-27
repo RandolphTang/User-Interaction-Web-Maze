@@ -47,12 +47,12 @@ public class     KruskalMinimumSpanningTreeFinder<G extends KruskalGraph<V, E>, 
         int edgeRealSize = 0;
         int vertexSize = graph.allVertices().size();
 
-        for (V eachV: graph.allVertices()){
+        for (V eachV: graph.allVertices()) {
             disjointSets.makeSet(eachV);
         }
 
         for (E edge: edges) {
-            if(disjointSets.findSet(edge.from()) != disjointSets.findSet(edge.to())) {
+            if (disjointSets.findSet(edge.from()) != disjointSets.findSet(edge.to())) {
                 disjointSets.union(edge.from(), edge.to());
 
                 collection.add(edge);
@@ -61,7 +61,7 @@ public class     KruskalMinimumSpanningTreeFinder<G extends KruskalGraph<V, E>, 
             }
         }
 
-        if(edgeRealSize != vertexSize - 1 && vertexSize != 0) {
+        if (edgeRealSize != vertexSize - 1 && vertexSize != 0) {
             return new MinimumSpanningTree.Failure<>();
         }
 
